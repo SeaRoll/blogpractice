@@ -1,0 +1,73 @@
+<%- include("partials/header") -%>
+
+  <div class="site-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 single-content">
+
+          <p class="mb-5">
+            <img src="images/big_img_1.jpg" alt="Image" class="img-fluid">
+          </p>
+          <h1 class="mb-4">
+            <%= thePost.title %>
+          </h1>
+          <div class="post-meta d-flex mb-3">
+            <div class="vcard">
+              <span class="d-block"><a href="#"><%= thePost.poster %></a></span>
+              <span class="date-read"><%= convertingDateToIndex.convertDate(thePost.date) %></span>
+            </div>
+          </div>
+
+          <div class="">
+            <%= thePost.content %>
+          </div>
+
+                <div class="pt-5">
+                  <div class="section-title">
+                    <h2 class="mb-5"><%= thePost.comment.length %> comments</h2>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-8 col-md-12">
+                  <ul class="comment-list">
+
+                    <%for(let i = 0; i < thePost.comment.length; i++) {%>
+                      <li class="comment">
+                        <div class="comment-body">
+                          <h3><%=thePost.comment[i].name%></h3>
+                          <div class="meta"><%= convertingDateToIndex.convertDate(thePost.comment[i].date) %></div>
+                          <p><%=thePost.comment[i].content%></p>
+                        </div>
+                      </li>
+                    <%}%>
+                  </ul>
+                </div>
+              </div>
+                  <!-- END comment-list -->
+
+                  <div class="comment-form-wrap pt-5">
+                    <div class="section-title">
+                      <h2 class="mb-5">Leave a comment</h2>
+                    </div>
+                    <form action="/submitComment" method="post" class="p-5 bg-light">
+                      <div class="form-group">
+                        <label for="name">Name *</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Name here">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea name="content" id="message" cols="30" rows="10" class="form-control" placeholder="Write your name here"></textarea>
+                      </div>
+                      <div class="form-group">
+                        <input type="submit" name="submit" value="Post Comment" class="btn btn-primary py-3">
+                      </div>
+                      <input type="hidden" name="postId" value=<%= thePost._id %>>
+                    </form>
+                  </div>
+                </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<%- include("partials/footer") -%>
